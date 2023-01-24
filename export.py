@@ -9,4 +9,4 @@
 
 def importierenn():
     with open("res.txt", "r") as file:
-        [print(sorted(i.split), end="\n") for i in file]
+        [print(sorted(i.split()), end="\n") for i in file]
