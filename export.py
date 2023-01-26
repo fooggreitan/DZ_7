@@ -1,12 +1,19 @@
-# Задание: Создать телефонный справочник с возможностью импорта и экспорта данных.
-# Модуль контроллер
-# Модуль для импорта(ввода данных)
-# Модуль для экспорта(вывод данных)
-# Строка содержит id,имя,фамилию,номер телефона, комментрий - 
-# символ разделитель на выбор(можно использовать пробел или запятые) + файл с хранением этих строк
-# *Добавить сортировку по имени или по id
-# *Добавить вывод только имени и фамилии
-
 def importierenn():
-    with open("res.txt", "r") as file:
-        [print(sorted(i.split()), end="\n") for i in file]
+  c = []
+  with open('res.txt', 'r', encoding="UTF-8") as file:
+    [c.append(line.rstrip().strip(",")) for line in sorted(file)]
+
+  with open('res.txt', 'w', encoding="UTF-8") as can:
+    can.writelines('\n'.join(c))
+
+
+def importierennNot():
+  with open('res.txt', 'r', encoding="UTF-8") as file:
+    [print(line, end="") for line in file]
+    file.close()
+
+def importierennNoet():
+  with open('res.txt', 'r+', encoding="UTF-8") as file:
+      for line in file.readlines():
+        res = line.split(",")
+        print(f"{res[1]}, {res[2]}")
