@@ -1,29 +1,38 @@
+from datetime import datetime as dt
+
 def get_type():
     type = int(input(
-        "\n0 - РёРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ С„Р°Р№Р»\n" 
-        "1 - СЌРєСЃРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ С„Р°Р№Р»\n"
-        "2 - СЌРєСЃРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ cРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ С„Р°Р№Р»\n"
-        "3 - СЌРєСЃРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ cРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ С„Р°Р№Р» РїРѕ РёРјРµРЅРё\n"
-        "4 - РІС‹С…РѕРґ\n"
+        "0 - Cоздать заметку\n" 
+        "1 - Получить список заметок\n"
+        "2 - Сортировка по номеру\n"
+        "3 - Сортировка по дате\n"
+        "4 - Удалить заметку\n"
+        "5 - Изменить заметку\n"
+        "6 - Выход\n"
+        "Введите интересующий вас параметр: "
     ))
     return type
 
 def get_id():
-    id = int(input("id: "))
+    id = int(input("ID: "))
     return id
 
-def get_name():
-    name = input("name: ")
-    return name
+def get_header():
+    header = input("Заголовок: ")
+    return header
 
-def get_surname():
-    surname = input("surname: ")
-    return surname
-
-def get_number():
-    number = int(input("number: "))
-    return number
+def get_importance():
+    importance = input("Важность: ")
+    return importance
 
 def get_comment():
-    comment = input("comment: ")
+    comment = input("Комментарий: ")
     return comment
+
+def get_dataNow():
+    time = dt.now().strftime('%d-%m-%Y %H:%M:%S')
+    return time
+
+def get_dataChenge():
+    time = dt.now().strftime('%d-%m-%Y %H:%M:%S')
+    return time
