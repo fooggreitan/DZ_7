@@ -1,67 +1,69 @@
+import csv
+
 import view
+from datetime import datetime
+
 def sodtedDate():
   with open('res.csv', 'r+', encoding="windows-1251") as file:
-    c = []
+    notes = []
     for line in file:
-      note_parts = line.split("  ")
+      note_parts = line.split(";")
       note_dict = {
-        "ID": note_parts[0].split(".")[0],
-        "Заголовок": note_parts[1].split(";")[0],
-        "Важность": note_parts[2].split(": ")[1].split(";")[0],
-        "Комментарий": note_parts[3].split(": ")[1].split(";")[0],
-        "Дата создания заметки": note_parts[4].split(": ")[1],
-        "Дата изменения заметки": note_parts[5].split(": ")[1].split(".\n")[0]
+        "ID": note_parts[0],
+        "Р—Р°РіРѕР»РѕРІРѕРє": note_parts[1],
+        "Р’Р°Р¶РЅРѕСЃС‚СЊ": note_parts[2],
+        "РљРѕРјРјРµРЅС‚Р°СЂРёР№": note_parts[3],
+        "Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ Р·Р°РјРµС‚РєРё": datetime.strptime(note_parts[4], '%d-%m-%Y %H:%M:%S'),
+        "Р”Р°С‚Р° РёР·РјРµРЅРµРЅРёСЏ Р·Р°РјРµС‚РєРё": note_parts[5].split("\n")[0]
       }
-      c.append(note_dict)
-  file.close()
+      notes.append(note_dict)
 
-  sorted_c = sorted(c, key=lambda x: x["Дата создания заметки"])
+    sorted_d= sorted(notes, key=lambda x: x["Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ Р·Р°РјРµС‚РєРё"])
 
   with open('res.csv', 'w', encoding="windows-1251") as can:
-    for note in sorted_c:
-      line = f"{note['ID']}.  " \
-             f"{note['Заголовок']};  " \
-             f"Важность: {note['Важность']};  " \
-             f"Комментарий: {note['Комментарий']};  " \
-             f"Дата создания заметки: {note['Дата создания заметки']}  " \
-             f"Дата изменения заметки: {note['Дата изменения заметки']}.\n"
+    for note in sorted_d:
+      line = f"{note['ID']};" \
+             f"{note['Р—Р°РіРѕР»РѕРІРѕРє']};" \
+             f"{note['Р’Р°Р¶РЅРѕСЃС‚СЊ']};" \
+             f"{note['РљРѕРјРјРµРЅС‚Р°СЂРёР№']};" \
+             f"{note['Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ Р·Р°РјРµС‚РєРё'].strftime('%d-%m-%Y %H:%M:%S')};" \
+             f"{note['Р”Р°С‚Р° РёР·РјРµРЅРµРЅРёСЏ Р·Р°РјРµС‚РєРё']}\n"
       can.write(line)
+  can.close()
   file.close()
 
 def sortedID():
-  c = []
+  sortedIDArray = []
   with open('res.csv', 'r+', encoding="windows-1251") as file:
-    [c.append(line.rstrip().strip(",")) for line in sorted(file)]
-  file.close()
+    [sortedIDArray.append(line.rstrip().strip(",")) for line in sorted(file)]
 
   with open('res.csv', 'w', encoding="windows-1251") as can:
-    can.writelines('\n'.join(c))
+    can.writelines('\n'.join(sortedIDArray))
   file.close()
 
 def importierennNot():
   with open('res.csv', 'r+', encoding="windows-1251") as file:
     for line in file:
-      note_parts = line.split("  ")
+      note_parts = line.split(";")
       note_dict = {
-        "ID": note_parts[0].split(".")[0],
-        "Заголовок": note_parts[1].split(";")[0],
-        "Важность": note_parts[2].split(": ")[1].split(";")[0],
-        "Комментарий": note_parts[3].split(": ")[1].split(";")[0],
-        "Дата создания заметки": note_parts[4].split(": ")[1],
-        "Дата изменения заметки": note_parts[5].split(": ")[1].split(".\n")[0].split(".")[0]
+        "ID": note_parts[0],
+        "Р—Р°РіРѕР»РѕРІРѕРє": note_parts[1],
+        "Р’Р°Р¶РЅРѕСЃС‚СЊ": note_parts[2],
+        "РљРѕРјРјРµРЅС‚Р°СЂРёР№": note_parts[3],
+        "Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ Р·Р°РјРµС‚РєРё": note_parts[4],
+        "Р”Р°С‚Р° РёР·РјРµРЅРµРЅРёСЏ Р·Р°РјРµС‚РєРё": note_parts[5].split("\n")[0]
       }
       print(note_dict)
   file.close()
 def delete_note():
   with open('res.csv', 'r+', encoding='windows-1251') as file:
     lines = file.readlines()
-  file.close()
 
-  numberID = int(input("Введите номер строки заметки, которую нужно удалить: "))
+  numberID = int(input("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё Р·Р°РјРµС‚РєРё РґР»СЏ СѓРґР°Р»РµРЅРёСЏ: "))
 
   with open('res.csv', 'w', encoding='windows-1251') as file:
     for i, line in enumerate(lines):
-      if not str(numberID) in line.split('.'):
+      if not str(numberID) in line.split(';'):
         file.write(line)
   file.close()
 
@@ -72,37 +74,39 @@ def changelist():
   with open('res.csv', 'r+', encoding="windows-1251") as file:
 
     for line in file:
-      note_parts = line.split("  ")
+      note_parts = line.split(";")
       note_dict = {
-        "ID": note_parts[0].split(".")[0],
-        "Заголовок": note_parts[1].split(";")[0],
-        "Важность": note_parts[2].split(": ")[1].split(";")[0],
-        "Комментарий": note_parts[3].split(": ")[1].split(";")[0],
-        "Дата создания заметки": note_parts[4].split(": ")[1],
-        "Дата изменения заметки": note_parts[5].split(": ")[1].split(".\n")[0].split(".")[0]
+        "ID": note_parts[0],
+        "Р—Р°РіРѕР»РѕРІРѕРє": note_parts[1],
+        "Р’Р°Р¶РЅРѕСЃС‚СЊ": note_parts[2],
+        "РљРѕРјРјРµРЅС‚Р°СЂРёР№": note_parts[3],
+        "Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ Р·Р°РјРµС‚РєРё": note_parts[4],
+        "Р”Р°С‚Р° РёР·РјРµРЅРµРЅРёСЏ Р·Р°РјРµС‚РєРё": note_parts[5].split("\n")[0]
       }
       list[note_parts[0].split(".")[0]] = note_dict
-  file.close()
 
-  cad = input("Введите номер строки заметки: ")
+  cad = input("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё Р·Р°РјРµС‚РєРё РґР»СЏ РёРјР·РµРЅРµРЅРёСЏ: ")
   print(list[cad])
-  caq = input("Выберите параметр который хотите изменить: ")
-  list[cad][caq] = input("Выберите изменение: ")
+  caq = input("Р’РІРµРґРёС‚Рµ РїР°СЂР°РјРµС‚СЂ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ: ")
+  list[cad][caq] = input("Р’РІРµРґРёС‚Рµ РёР·РјРµРЅРµРЅРёРµ: ")
 
   with open('res.csv', 'w', encoding="windows-1251") as file:
     for key, value in list.items():
       if key == cad:
-        line = f"{key}.  {value['Заголовок']};  " \
-               f"Важность: {value['Важность']};  " \
-               f"Комментарий: {value['Комментарий']};  " \
-               f"Дата создания заметки: {value['Дата создания заметки']}  " \
-               f"Дата изменения заметки: {view.get_dataChenge()}.\n"
+        line = f"{key};" \
+               f"{value['Р—Р°РіРѕР»РѕРІРѕРє']};" \
+               f"{value['Р’Р°Р¶РЅРѕСЃС‚СЊ']};" \
+               f"{value['РљРѕРјРјРµРЅС‚Р°СЂРёР№']};" \
+               f"{value['Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ Р·Р°РјРµС‚РєРё']};" \
+               f"{view.get_dataChenge()}\n"
       else:
-        line = f"{key}.  {value['Заголовок']};  " \
-               f"Важность: {value['Важность']};  " \
-               f"Комментарий: {value['Комментарий']};  " \
-               f"Дата создания заметки: {value['Дата создания заметки']}  " \
-               f"Дата изменения заметки:: {value['Дата изменения заметки']}.\n"
-        file.write(line)
-  file.close()
+        line = f"{key};" \
+               f"{value['Р—Р°РіРѕР»РѕРІРѕРє']};" \
+               f"{value['Р’Р°Р¶РЅРѕСЃС‚СЊ']};" \
+               f"{value['РљРѕРјРјРµРЅС‚Р°СЂРёР№']};" \
+               f"{value['Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ Р·Р°РјРµС‚РєРё']};" \
+               f"{value['Р”Р°С‚Р° РёР·РјРµРЅРµРЅРёСЏ Р·Р°РјРµС‚РєРё']}\n"
 
+      file.write(line)
+
+  file.close()
